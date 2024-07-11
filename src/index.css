@@ -6,3 +6,9 @@
 body {
     font-family: "Jost", sans-serif;
 }
+
+@layer components {
+    .custom__container {
+        @apply xl:container px-3 md:px-6 xl:mx-auto;
+    }
+}
