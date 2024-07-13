@@ -9,6 +9,7 @@ import { Helmet } from "react-helmet-async";
 import { IoClose } from "react-icons/io5";
 import categoryApi from "../../redux/features/category/categoryApi";
 import { setCategories } from "../../redux/features/category/categorySlice";
+import CategoryFilter from "../../components/CategoryFilter/CategoryFilter";
 
 const useLoadProducts = (sort: string, page: string) => {
     const dispatch = useAppDispatch();
@@ -73,9 +74,18 @@ const Product = () => {
             </Helmet>
 
             {/* page contents */}
-            <div className="custom__container grid lg:grid-cols-3 xl:grid-cols-7 pt-12 pb-8">
+            <div className="custom__container grid lg:grid-cols-3 xl:grid-cols-7 gap-5 pt-12 pb-8">
                 {/* sidebar filters */}
-                <div className="xl:col-span-2"></div>
+                <div className="xl:col-span-2">
+                    <div className="bg-gray-100 rounded-lg p-4 lg:p-7 mb-4">
+                        <h5 className="lg:text-xl mb-5">Categories</h5>
+                        <ul>
+                            <li>
+                                <CategoryFilter />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
                 {/* main */}
                 <div className="lg:col-span-2 xl:col-span-5">
