@@ -1,17 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type TProductMeta = {
-    page: number;
-    limit: number;
-    totalPage: number;
-    totalDoc: number;
-};
-
-type TCategory = {
-    _id: string;
-    name: string;
-    image?: string;
-};
+import { TCategory, TMeta } from "../../../types";
 
 type TProduct = {
     _id: string;
@@ -27,7 +15,7 @@ type TProduct = {
 type TProducts = TProduct[];
 
 type TProductsData = {
-    meta: TProductMeta;
+    meta: TMeta;
     products: TProducts;
 };
 

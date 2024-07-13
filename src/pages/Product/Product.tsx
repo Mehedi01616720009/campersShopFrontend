@@ -7,34 +7,72 @@ import { setProducts } from "../../redux/features/product/productSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Helmet } from "react-helmet-async";
 import { IoClose } from "react-icons/io5";
+import categoryApi from "../../redux/features/category/categoryApi";
+import { setCategories } from "../../redux/features/category/categorySlice";
+
+const useLoadProducts = (sort: string, page: string) => {
+    const dispatch = useAppDispatch();
+
+    // fetch products
+    const { data: productsData, error: productsError } =
+        productApi.useGetAllProductsQuery({ sort, page });
+
+    useEffect(() => {
+        if (productsData && productsData.data) {
+            dispatch(
+                setProducts({
+                    meta: productsData.data.meta,
+                    products: productsData.data.result,
+                })
+            );
+        } else if (productsError) {
+            console.log(productsError);
+        }
+    }, [productsData, productsError, dispatch]);
+};
+
+const useLoadCategories = () => {
+    const dispatch = useAppDispatch();
+
+    // fetch categories
+    const { data: categoriesData, error: categoriesError } =
+        categoryApi.useGetAllCategoriesQuery(undefined);
+
+    useEffect(() => {
+        if (categoriesData && categoriesData.data) {
+            dispatch(
+                setCategories({
+                    meta: categoriesData.data.meta,
+                    categories: categoriesData.data.result,
+                })
+            );
+        } else if (categoriesError) {
+            console.log(categoriesError);
+        }
+    }, [categoriesData, categoriesError, dispatch]);
+};
 
 const Product = () => {
     const [sort, setSort] = useState("");
     const [page, setPage] = useState("1");
-    const dispatch = useAppDispatch();
-    const { data, error } = productApi.useGetAllProductsQuery({ sort, page });
 
-    useEffect(() => {
-        if (data && data.data) {
-            dispatch(
-                setProducts({
-                    meta: data.data.meta,
-                    products: data.data.result,
-                })
-            );
-        } else if (error) {
-            console.log(error);
-        }
-    }, [data, error, dispatch]);
+    // fetch products
+    useLoadProducts(sort, page);
+
+    // fetch categories
+    useLoadCategories();
 
     const products = useAppSelector((state) => state.products.products);
     const productsMeta = useAppSelector((state) => state.products.meta);
 
     return (
         <div>
+            {/* page title */}
             <Helmet>
                 <title>Shopy Campers | All Products</title>
             </Helmet>
+
+            {/* page contents */}
             <div className="custom__container grid lg:grid-cols-3 xl:grid-cols-7 pt-12 pb-8">
                 {/* sidebar filters */}
                 <div className="xl:col-span-2"></div>
