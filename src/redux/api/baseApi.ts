@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseQuery = fetchBaseQuery({
-    baseUrl: import.meta.env.SERVER_URL as string,
+    baseUrl: "http://localhost:3000/api/",
 });
 
 export const baseApi = createApi({
