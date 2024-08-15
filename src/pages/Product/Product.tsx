@@ -82,6 +82,8 @@ const Product = () => {
                         <ul>
                             <li>
                                 <CategoryFilter />
+                                <CategoryFilter />
+                                <CategoryFilter />
                             </li>
                         </ul>
                     </div>
